@@ -1,0 +1,45 @@
+# -*- mode: python ; coding: utf-8 -*-
+
+block_cipher = None
+
+# 添加资源文件到datas列表
+added_files = [
+    ('fonts/ShanHaiJiGuJiangNanSongKeW-2.ttf', 'fonts'),
+    ('icons/dashboard-32.ico', 'icons'),
+    ('icons/dashboard-256.ico', 'icons'),
+    ('icons/info-circle-32.png', 'icons'),
+]
+
+a = Analysis(['src\\main.py'],
+             pathex=['src'],
+             binaries=[],
+             datas=added_files,
+             hiddenimports=[],
+             hookspath=[],
+             hooksconfig={},
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+          cipher=block_cipher)
+
+# 单文件配置 - 移除了COLLECT步骤
+exe = EXE(pyz,
+          a.scripts,
+          a.binaries,  # 需要包含二进制文件
+          a.zipfiles,  # 需要包含zip文件
+          a.datas,     # 需要包含数据文件
+          name='文件行数统计工具',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          console=False,
+          disable_windowed_traceback=False,
+          target_arch=None,
+          codesign_identity=None,
+          entitlements_file=None,
+          icon='icons/dashboard-32.ico')
